@@ -1,0 +1,1 @@
+from .LegalNoticeGui import *
