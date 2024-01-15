@@ -5,7 +5,5 @@ moduleNames = ('test.testTxtParser', 'test.testCsvExporter', 'test.testGraphExpo
                'test.testRhymeWordExtractor', 'test.testRhymeWordProcessor', 'test.testTeiParser', 'test.testTxtExporter')
 
 for module in moduleNames:
+    print(module + ":\n")
     print(sys.modules[module].test())
-
-print("Test")
-
