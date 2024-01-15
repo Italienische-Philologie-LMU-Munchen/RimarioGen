@@ -6,3 +6,5 @@ moduleNames = ('test.testTxtParser', 'test.testCsvExporter', 'test.testGraphExpo
 
 for module in moduleNames:
     print(sys.modules[module].test())
+
+print("Test")
