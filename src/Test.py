@@ -9,5 +9,3 @@ for module in moduleNames:
 
 print("Test")
 
-print('test maxi')
-
