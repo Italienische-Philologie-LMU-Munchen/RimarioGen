@@ -18,5 +18,4 @@ class RhymeWordExtractor:
             words = verse.split(' ')
             rhymeword = words[-1]
             rhymewordlist.append(rhymeword)
-    
-        print("RhymeWordExtractor hasn't been implemented yet.")
+        print(rhymewordlist)
