@@ -12,7 +12,6 @@ class RhymeWordExtractor:
         '''Extract rhyme words of internal text lines
 
         returns:  -- (List of strings List of rhyme words extracted)'''
-        # TBD
 
         rhymewordlist = []
         for verse in self.textlines:
