@@ -13,4 +13,10 @@ class RhymeWordExtractor:
 
         returns:  -- (List of strings List of rhyme words extracted)'''
         # TBD
+        rhymewordlist = []
+        for verse in self.textlines:
+            words = verse.split(' ')
+            rhymeword = words[-1]
+            rhymewordlist.append(rhymeword)
+    
         print("RhymeWordExtractor hasn't been implemented yet.")
