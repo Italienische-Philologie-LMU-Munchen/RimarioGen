@@ -1,2 +1,7 @@
+from txtparser import *
+
 def test():
-    return "TestTxtParser works!"
+    testPath = "testData/CantoPrimoDC.txt"
+    testTxtParser = TxtParser(testPath)
+    testTxtParserResult = testTxtParser.parse()
+    return testTxtParserResult
