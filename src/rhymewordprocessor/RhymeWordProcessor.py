@@ -20,8 +20,8 @@ class RhymeWordProcessor:
         '''Deliver internal rhyme word list without any modifications/calculations
 
         returns:  -- (List of strings) List of rhyme words (internal unmodificated list)'''
-        # TBD
-        print("RhymeWordProcessor hasn't been implemented yet.")
+        return self.rhymeWords
+        
 
     def sortByOccurences(self):
         '''Deliver rhyme word list sorted by the number of occurences, so the most frequent rhyme word will be the first word in the list returned
