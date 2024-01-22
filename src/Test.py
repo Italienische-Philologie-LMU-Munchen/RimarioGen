@@ -7,3 +7,10 @@ moduleNames = ('test.testTxtParser', 'test.testCsvExporter', 'test.testGraphExpo
 for module in moduleNames:
     print(module + ":\n")
     print(sys.modules[module].test())
+
+
+
+
+
+
+#test lisa
