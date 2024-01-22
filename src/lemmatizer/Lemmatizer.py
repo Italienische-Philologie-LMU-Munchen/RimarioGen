@@ -11,5 +11,5 @@ class Lemmatizer:
         '''Lemmatize words in wordlist of Lemmatizer
 
         returns:  -- (List of strings) List of lemmatized words'''
-        # TBD
+        # Sheila
         print("Lemmatizer hasn't been implemented yet.")
