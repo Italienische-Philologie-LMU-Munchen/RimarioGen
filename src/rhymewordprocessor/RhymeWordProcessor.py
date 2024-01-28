@@ -13,8 +13,9 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List if strings) List of rhyme words wihtout duplicates'''
-        # TBD
-        print("RhymeWordProcessor hasn't been implemented yet.")
+        # TBD Veronika
+
+        print("List without duplicates is under construction.")
 
     def getRawList(self):
         '''Deliver internal rhyme word list without any modifications/calculations
