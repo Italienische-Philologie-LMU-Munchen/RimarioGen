@@ -15,7 +15,7 @@ class TeiParser():
         '''Parse textual content of internal TEI XML file
 
         returns:  -- (List of strings) All lines contained in TEI XML file (following P5 standard of TEI, usually identified by <l>-tags)'''
-        # TBD
+        
         # Lisa
 
         #load document

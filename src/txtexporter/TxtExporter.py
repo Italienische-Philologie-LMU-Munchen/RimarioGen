@@ -13,8 +13,19 @@ class TxtExporter:
         '''Export data to txt file given
 
         outputfile: -- (string) Path of file which data is going to be written to. If file doesn't exist, it will be created. If it exists, it will be overwritten'''
-        # TBD
+        
         # Lisa
 
+        f = open(outputfile, "w", encoding = "utf-8")
+        
+        f.write(self.lableData)
+        f.write("\n")
 
-        print("TxtExporter hasn't been implemented yet.")
+        for rhymeword in self.data:
+            f.write(rhymeword)
+
+
+        f.close()
+
+
+        
