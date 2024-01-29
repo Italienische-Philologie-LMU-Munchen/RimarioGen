@@ -32,7 +32,11 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted by occurrences'''
-        # TBD
+        # TBD 
+        # Veronika
+        for word in self.rhymeWords:
+            occurences = self.rhymeWords.count(word)
+
         print("RhymeWordProcessor hasn't been implemented yet.")
 
     def sortByLength(self):
@@ -41,7 +45,7 @@ class RhymeWordProcessor:
 
         returns:  -- (List of strings) List of rhyme words sorted by length'''
         
-        rhymewordsByLength = self.rhymeWords.sort(key = len)
+        rhymewordsByLength = sorted(self.rhymeWords, key=len)
         return rhymewordsByLength
 
     def sortAlphabetically(self):
@@ -49,7 +53,7 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted alphabetically'''
-        rhymewordsAlphabetically = self.rhymeWords.sort
+        rhymewordsAlphabetically = sorted(self.rhymeWords)
         return rhymewordsAlphabetically
 
     def sortAlphabeticallyLastLetter(self):
@@ -57,7 +61,9 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted alphabetically considering their last letter'''
-        rhymewordsAlphabeticallyReverse = self.rhymeWords.sort (reverse = True)
+        def sortByLastLetter(s):
+            return s[-1], s
+        rhymewordsAlphabeticallyReverse = sorted(self.rhymeWords, key = sortByLastLetter)
         return rhymewordsAlphabeticallyReverse
 
     def sortByNumberOfVowels(self):
