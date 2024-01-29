@@ -49,16 +49,16 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted alphabetically'''
-        #TBD
-        print("RhymeWordProcessor hasn't been implemented yet.")
+        rhymewordsAlphabetically = self.rhymeWords.sort
+        return rhymewordsAlphabetically
 
     def sortAlphabeticallyLastLetter(self):
         '''Deliver rhyme word list sorted alphabetically considering the last letter, so the rhyme word ending with an "A" will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted alphabetically considering their last letter'''
-        # TBD
-        print("RhymeWordProcessor hasn't been implemented yet.")
+        rhymewordsAlphabeticallyReverse = self.rhymeWords.sort (reverse = True)
+        return rhymewordsAlphabeticallyReverse
 
     def sortByNumberOfVowels(self):
         '''Deliver rhyme word list sorted by the number of vowels, so the rhyme word containing the highest number of vowels will be the first word in the list returned
