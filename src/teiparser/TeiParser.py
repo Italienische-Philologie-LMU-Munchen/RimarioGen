@@ -25,7 +25,7 @@ class TeiParser():
         ns = {'tei': 'http://www.tei-c.org/ns/1.0'}
 
         #extract
-        lines = treeText.xpath('//tei:l', namespaces=ns)
+        lines = treeText.xpath('//l', namespaces=ns)
         result_lines = [line.text for line in lines if line.text is not None]
 
         return result_lines
@@ -34,4 +34,3 @@ class TeiParser():
 
 
 
-    print("TeiParser is under construction. :)")
