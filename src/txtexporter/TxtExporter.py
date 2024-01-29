@@ -16,5 +16,16 @@ class TxtExporter:
         # TBD
         # Lisa
 
+        f = open(outputfile, "w", encoding = "utf-8")
+        
+        f.write(str(self.lableData))
+        f.write("\n")
+
+        for rhymeword in self.data:
+            f.write(rhymeword)
+
+
+        f.close()
+
 
         print("TxtExporter hasn't been implemented yet.")
