@@ -1,2 +1,6 @@
+from rhymewordprocessor import *
+
 def test():
-    return "TestRhymeWordProcessor works!"
+    baseList = ['vita', 'oscura', 'smarrita', 'dura', 'stelle']
+    testRhymeWordProcessor = RhymeWordProcessor(baseList)
+    return testRhymeWordProcessor.removeDuplicates()
