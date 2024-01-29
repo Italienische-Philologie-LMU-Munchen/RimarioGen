@@ -14,7 +14,7 @@ class RhymeWordProcessor:
 
         returns:  -- (List if strings) List of rhyme words wihtout duplicates'''
         # statt der Standardmethode set() zum Entfernen von Duplikaten wird hier in ein dictionary umgewandelt, da so die Wörter in der Reihenfolge ihres Erscheinens bleiben
-        
+
         rhymeword_dict = dict.fromkeys(self.rhymeWords)
         rhymewords_withoutDuplicates = list(rhymeword_dict)
         return rhymewords_withoutDuplicates
@@ -40,15 +40,16 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted by length'''
-        # TBD
-        print("RhymeWordProcessor hasn't been implemented yet.")
+        
+        rhymewordsByLength = self.rhymeWords.sort(key = len)
+        return rhymewordsByLength
 
     def sortAlphabetically(self):
         '''Deliver rhyme word list sorted alphabetically, so the rhyme word starting with an "A" will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted alphabetically'''
-        # TBD
+        #TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
     def sortAlphabeticallyLastLetter(self):
