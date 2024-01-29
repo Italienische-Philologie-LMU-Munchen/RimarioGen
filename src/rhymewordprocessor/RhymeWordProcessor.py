@@ -13,9 +13,12 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List if strings) List of rhyme words wihtout duplicates'''
-        # TBD Veronika
+        # statt der Standardmethode set() zum Entfernen von Duplikaten wird hier in ein dictionary umgewandelt, da so die Wörter in der Reihenfolge ihres Erscheinens bleiben
+        
+        rhymeword_dict = dict.fromkeys(self.rhymeWords)
+        rhymewords_withoutDuplicates = list(rhymeword_dict)
+        return rhymewords_withoutDuplicates
 
-        print("List without duplicates is under construction.")
 
     def getRawList(self):
         '''Deliver internal rhyme word list without any modifications/calculations
