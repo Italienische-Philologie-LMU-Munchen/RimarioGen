@@ -1,5 +1,9 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import PhotoImage
+import os
+from pathlib import Path
+from tkinter import Label
+from tkinter.scrolledtext import ScrolledText
 
 
 class LegalNoticeGui(tk.Tk):
@@ -8,24 +12,59 @@ class LegalNoticeGui(tk.Tk):
 
     def __init__(self):
         '''Create a new istane of LegalNoticeGui'''
-        super().__init__()
+        tk.Tk.__init__(self)
+
+        self.baseWidth = 450
+        self.baseHeight = 450
+
+        # Title of application window and icon
+        self.title("Rimario Generator - Legal Notice")
+
+        # Icon handling
+        file = str(Path(os.path.dirname(__file__)).parent.absolute() /
+                   'assets' / 'clipboard-list-solid.png')
+        # self.iconphoto(False, PhotoImage(file=file))
+
+        # Fixed geometry for startup of application
+        self.geometry(str(self.baseWidth)+'x'+str(self.baseHeight)+'+5+40')
+        self.resizable(False, False)
+
+        self.grid_propagate(0)
+        self.grid_columnconfigure(5, weight=1)
+        self.grid_rowconfigure(5, weight=1)
+
+        # Heading for legal text to be displayed
+        self.lbLegalTextHeading = Label(self, text='Legal Notice:')
+        self.lbLegalTextHeading.grid(
+            row=0, column=0, padx=5, pady=5, sticky='NW')
 
         # Main legal text to be displayed
-        self.legalText = '''RimarioGen
-Version: 0.1.0.0 
+        self.legalText = '''Rimario Generator
 
-Copyright: ©2024, GNU GPLv3 License 
+Version: 0.1.0.0
 
-Insitute of Italian Philology, LMU Munich. Collaborators: '''
+Copyright: ©2024, GNU GPLv3 License
+
+Insitute of Italian Philology, LMU Munich.
+Collaborators: '''
+        self.lbLegalText = Label(self, text=self.legalText, justify='left')
+        self.lbLegalText.grid(row=1, column=0, padx=5, pady=5, sticky='NW')
 
         # List of libraries and copyright mentions to be displayed (read only mode!)
         self.legalTextLibraries = '''Software to analyze rhyme words in (Old) Italian texts 
-        <br/><br/>
-        The following resources have been used: 
-        <br/><br/>        
-        Pygal: https://github.com/Kozea/pygal,  LGPL 3.0-License
-        <br/><br/>
-        lxml: https://github.com/lxml/lxml, BSD License: Copyright (c) 2004 Infrae. All rights reserved.
-        <br/><br/>
-        Free Fontawesome icons: https://fontawesome.com/,  SIL OFL 1.1 license
-        <br/><br/>'''
+\n
+The following resources have been used: 
+\n     
+lxml: https://github.com/lxml/lxml, BSD License\n
+Copyright (c) 2004 Infrae. All rights reserved.
+\n
+Free Fontawesome icons: https://fontawesome.com/\n
+SIL OFL 1.1 license
+\n'''
+
+        self.txtlegalTextLibraries = ScrolledText(
+            self, width=self.baseWidth//9, height=self.baseHeight//30, font=("Helvetica", 10), )
+        self.txtlegalTextLibraries.insert(tk.END, self.legalTextLibraries)
+        self.txtlegalTextLibraries.configure(state=tk.DISABLED)
+        self.txtlegalTextLibraries.grid(
+            row=2, column=0, padx=5, pady=5, sticky='NW')

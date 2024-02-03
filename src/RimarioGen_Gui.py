@@ -8,6 +8,7 @@ from tkinter import Checkbutton
 from tkinter import Listbox
 from tkinter import Scrollbar
 from tkinter import messagebox
+from tkinter import PhotoImage
 from rhymewordprocessor import RhymeWordProcessor
 from rhymewordextractor import RhymeWordExtractor
 from txtparser import TxtParser
@@ -15,6 +16,7 @@ from teiparser import TeiParser
 from txtexporter import TxtExporter
 from csvexporter import CsvExporter
 from lemmatizer import Lemmatizer
+from legalNoticeGui import LegalNoticeGui
 import os.path
 
 
@@ -39,6 +41,14 @@ class RimarioGenGui(tk.Tk):
         self.isCsvExport = tk.BooleanVar()
         self.isLemmatizeTreeTagger = tk.BooleanVar()
         self.isLemmatizeSpacy = tk.BooleanVar()
+
+        self.iconphoto(True, PhotoImage(
+            file=os.path.join(os.path.dirname(__file__), 'assets/clipboard-list-solid.png')))
+
+        self.protocol('WM_DELETE_WINDOW', self.mainClose)
+
+        self.legalNotice = None
+        self.isChildWindowOpen = False
 
         self.setupWindow()
 
@@ -65,7 +75,7 @@ class RimarioGenGui(tk.Tk):
         fileWidth = self.baseWidth//5*2 - 10
         fileHeight = self.baseHeight//5*2
         self.fileFrame = Frame(
-            self, bg="blue", width=fileWidth, height=fileHeight)
+            self, width=fileWidth, height=fileHeight, borderwidth=2, relief="groove")
         self.fileFrame.grid_propagate(0)
         self.fileFrame.grid(row=0, rowspan=2, column=0, columnspan=2,
                             padx=5, pady=5)
@@ -73,7 +83,7 @@ class RimarioGenGui(tk.Tk):
         self.fileFrame.grid_rowconfigure(5, weight=1)
 
         self.lbFileSelect = Label(
-            self.fileFrame, text="Select a file")
+            self.fileFrame, text="Select a file", borderwidth=2, relief="groove")
         self.lbFileSelect.grid(row=0, column=0, padx=5, pady=5, sticky='NW')
 
         self.btFileSelect = Button(
@@ -92,7 +102,7 @@ class RimarioGenGui(tk.Tk):
         availableMethodsWidth = self.baseWidth//5 - 10
         availableMethodsHeight = self.baseHeight//5*4
         self.availableMethodsFrame = Frame(
-            self, bg="red", width=availableMethodsWidth, height=availableMethodsHeight)
+            self, width=availableMethodsWidth, height=availableMethodsHeight)
         self.availableMethodsFrame.grid_propagate(0)
         self.availableMethodsFrame.grid(
             row=0, rowspan=4, column=2, padx=5, pady=5)
@@ -122,14 +132,14 @@ class RimarioGenGui(tk.Tk):
         methodChangeWidth = self.baseWidth//5 - 10
         methodChangeHeight = self.baseHeight//5*4
         self.methodChangeFrame = Frame(
-            self, bg="green", width=methodChangeWidth, height=methodChangeHeight)
+            self, width=methodChangeWidth, height=methodChangeHeight)
         self.methodChangeFrame.grid_propagate(0)
         self.methodChangeFrame.grid(row=0, rowspan=4, column=3, padx=5, pady=5)
         self.methodChangeFrame.grid_columnconfigure(0, weight=1)
         self.methodChangeFrame.grid_rowconfigure(5, weight=1)
 
         self.lbMethodChange = Label(
-            self.methodChangeFrame, text="Select analysis methods")
+            self.methodChangeFrame, text="Select analysis methods", borderwidth=2, relief="groove")
         self.lbMethodChange.grid(row=0, column=0, padx=5, pady=5, sticky='NW')
 
         self.btAddMethod = Button(
@@ -144,7 +154,7 @@ class RimarioGenGui(tk.Tk):
         chosenMethodsWidth = self.baseWidth//5 - 10
         chosenMethodsHeight = self.baseHeight//5*4
         self.chosenMethodsFrame = Frame(
-            self, bg="yelloW", width=chosenMethodsWidth, height=chosenMethodsHeight)
+            self, width=chosenMethodsWidth, height=chosenMethodsHeight)
         self.chosenMethodsFrame.grid_propagate(0)
         self.chosenMethodsFrame.grid(
             row=0, rowspan=4, column=4, padx=5, pady=5)
@@ -175,11 +185,15 @@ class RimarioGenGui(tk.Tk):
         self.cbLemmatizeSpacy.grid(
             row=3, column=0, padx=5, pady=5, sticky="W")
 
+        self.btLegalNotice = Button(
+            self.chosenMethodsFrame, text="Legal Notice", command=self.btLegalNoticeClick)
+        self.btLegalNotice.grid(row=5, padx=5, pady=5, sticky='NE')
+
     def setupExportFrame(self):
         exportWidth = self.baseWidth//5*2 - 10
         exportHeight = self.baseHeight//5*2
         self.exportFrame = Frame(
-            self, bg="orange", width=exportWidth, height=exportHeight)
+            self, width=exportWidth, height=exportHeight, borderwidth=2, relief="groove")
         self.exportFrame.grid_propagate(0)
         self.exportFrame.grid(row=2, rowspan=2, column=0,
                               columnspan=2, padx=5, pady=5)
@@ -187,7 +201,7 @@ class RimarioGenGui(tk.Tk):
         self.exportFrame.grid_rowconfigure(5, weight=1)
 
         self.lbExportSelect = Label(
-            self.exportFrame, text="Select an export format")
+            self.exportFrame, text="Select an export format", borderwidth=2, relief="groove")
         self.lbExportSelect.grid(row=0, column=0, padx=5, pady=5, sticky='NW')
 
         self.cbExportTxt = Checkbutton(
@@ -209,13 +223,13 @@ class RimarioGenGui(tk.Tk):
 
         self.lbExportChosen = Label(
             self.exportFrame, text="")
-        self.lbExportChosen.grid(row=5, column=0, padx=5, pady=5, sticky='W')
+        self.lbExportChosen.grid(row=5, column=0, padx=5, pady=5, sticky='WN')
 
     def setupRunFrame(self):
         runWidth = self.baseWidth - 10
         runHeight = self.baseHeight//5
         self.runFrame = Frame(
-            self, bg="turquoise", width=runWidth, height=runHeight)
+            self, width=runWidth, height=runHeight)
         self.runFrame.grid_propagate(0)
         self.runFrame.grid(row=5, columnspan=5, column=0, padx=5, pady=5)
         self.runFrame.grid_columnconfigure(0, weight=1)
@@ -300,6 +314,24 @@ class RimarioGenGui(tk.Tk):
                 stillAvailableNumber, self.lboxChosenMethods.get(i))
             stillAvailableNumber = stillAvailableNumber+1
             self.lboxChosenMethods.delete(i)
+
+    def btLegalNoticeClick(self):
+        self.legalNotice = LegalNoticeGui()
+        self.isChildWindowOpen = True
+        self.legalNotice.protocol(
+            'WM_DELETE_WINDOW', lambda: self.childClose(self.legalNotice))
+        self.legalNotice.mainloop()
+
+    def childClose(self, childWindow):
+        self.isLegalNoticeOpen = False
+        childWindow.destroy()
+
+    def mainClose(self):
+        if self.isChildWindowOpen:
+            self.legalNotice.destroy()
+            self.destroy()
+        else:
+            self.destroy()
 
 
 def main():
