@@ -43,4 +43,6 @@ The following features are to be implemented in further versions of the software
 - Improve GUI
 - Add further functionalities for Rimario generation
 - Add graphical analysis (especially for vowel/consonant/letter distribution)
+- Create console application
+- Write comments for GUI code
 - ...

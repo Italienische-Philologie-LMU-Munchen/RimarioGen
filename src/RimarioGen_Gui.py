@@ -18,6 +18,8 @@ from csvexporter import CsvExporter
 from lemmatizer import Lemmatizer
 from legalNoticeGui import LegalNoticeGui
 import os.path
+import treetaggerwrapper
+import sys
 
 
 class RimarioGenGui(tk.Tk):
@@ -179,11 +181,14 @@ class RimarioGenGui(tk.Tk):
             self.chosenMethodsFrame, text="Lemmatize (TreeTagger)", variable=self.isLemmatizeTreeTagger)
         self.cbLemmatizeTreeTagger.grid(
             row=2, column=0, padx=5, pady=5, sticky="W")
+        if self.isTreeTaggerAvailable() == False:
+            self.cbLemmatizeTreeTagger.configure(state=tk.DISABLED)
 
         self.cbLemmatizeSpacy = Checkbutton(
             self.chosenMethodsFrame, text="Lemmatize (spaCy)", variable=self.isLemmatizeSpacy)
         self.cbLemmatizeSpacy.grid(
             row=3, column=0, padx=5, pady=5, sticky="W")
+        self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
 
         self.btLegalNotice = Button(
             self.chosenMethodsFrame, text="Legal Notice", command=self.btLegalNoticeClick)
@@ -332,6 +337,20 @@ class RimarioGenGui(tk.Tk):
             self.destroy()
         else:
             self.destroy()
+
+    def isTreeTaggerAvailable(self):
+        returnFlag = True
+        try:
+            pythonVersion = sys.version_info
+            if pythonVersion > (3, 11):
+                returnFlag = False
+            else:
+                tagger = treetaggerwrapper.TreeTagger(TAGLANG='it')
+                tagger.tag_text("io")
+        except:
+            returnFlag = False
+        finally:
+            return returnFlag
 
 
 def main():
