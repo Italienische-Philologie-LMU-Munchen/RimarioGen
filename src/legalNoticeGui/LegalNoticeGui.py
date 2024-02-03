@@ -58,9 +58,15 @@ The following resources have been used:
 lxml: https://github.com/lxml/lxml, BSD License\n
 Copyright (c) 2004 Infrae. All rights reserved.
 \n
+Pigar: https://github.com/damnever/pigar, BSD License\n
+Copyright (c) 2020 XiaoChao Dong (@damnever) <dxc.wolf@gmail.com>\n
+All rights reserved.
+\n
 Free Fontawesome icons: https://fontawesome.com/\n
 SIL OFL 1.1 license
-\n'''
+\n
+Draw.io Desktop: https://github.com/jgraph/drawio-desktop
+Apache 2.0 licence'''
 
         self.txtlegalTextLibraries = ScrolledText(
             self, width=self.baseWidth//9, height=self.baseHeight//30, font=("Helvetica", 10), )
