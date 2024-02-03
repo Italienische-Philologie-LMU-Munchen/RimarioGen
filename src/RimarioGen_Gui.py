@@ -3,21 +3,43 @@ from tkinter import Frame
 from tkinter import Label
 from tkinter import Button
 from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askdirectory
 from tkinter import Checkbutton
 from tkinter import Listbox
+from tkinter import Scrollbar
+from tkinter import messagebox
+from rhymewordprocessor import RhymeWordProcessor
+from rhymewordextractor import RhymeWordExtractor
+from txtparser import TxtParser
+from teiparser import TeiParser
+from txtexporter import TxtExporter
+from csvexporter import CsvExporter
+from lemmatizer import Lemmatizer
+import os.path
 
 
 class RimarioGenGui(tk.Tk):
     '''RimarioGenGui handles a graphical interface to be displayed to the user, so (s)he can use the functionality of RimarioGen easily
-    RimarioGenGui iinherits from tkinter, so it is a tkinter application which should be possible to be run with standard Python installation without any pre-requisities'''
+    RimarioGenGui inherits from tkinter, so it is a tkinter application which should be possible to be run with standard Python installation without any pre-requisities'''
 
     def __init__(self):
         '''Create a new instance of RimarioGenGui'''
         self.filename = ''
+        self.exportdir = ''
+        self.parser = None
+        self.exporter = None
+        self.lemmatizer = None
+        self.rhymeWordProcessor = RhymeWordProcessor([])
+        self.rhymeWordExtractor = None
 
         tk.Tk.__init__(self)
-        self.baseWidth = 800
+        self.baseWidth = 900
         self.baseHeight = 600
+        self.isTxtExport = tk.BooleanVar()
+        self.isCsvExport = tk.BooleanVar()
+        self.isLemmatizeTreeTagger = tk.BooleanVar()
+        self.isLemmatizeSpacy = tk.BooleanVar()
+
         self.setupWindow()
 
     def setupWindow(self):
@@ -58,9 +80,9 @@ class RimarioGenGui(tk.Tk):
             self.fileFrame, text="Choose a file", command=self.btFileSelectClick)
         self.btFileSelect.grid(row=1, padx=5, pady=5, sticky='W')
 
-        self.lbFileChosen = Label(
+        self.lbFileChosenHead = Label(
             self.fileFrame, text="File chosen:")
-        self.lbFileChosen.grid(row=3, column=0, padx=5, pady=5, sticky='W')
+        self.lbFileChosenHead.grid(row=3, column=0, padx=5, pady=5, sticky='W')
 
         self.lbFileChosen = Label(
             self.fileFrame, text="")
@@ -78,9 +100,23 @@ class RimarioGenGui(tk.Tk):
         self.availableMethodsFrame.grid_rowconfigure(5, weight=1)
 
         self.lboxAvailableMethods = Listbox(
-            self.availableMethodsFrame, height=10)
+            self.availableMethodsFrame, height=15, width=availableMethodsWidth//7+1)
         self.lboxAvailableMethods.grid(
             row=0, column=0, padx=5, pady=5, sticky='N')
+
+        self.scbXAvailableMethods = Scrollbar(
+            self.availableMethodsFrame, orient="horizontal")
+        self.scbXAvailableMethods.config(
+            command=self.lboxAvailableMethods.xview)
+        self.scbXAvailableMethods.grid(
+            row=0, column=0, padx=5, pady=5, sticky="SWE")
+        self.lboxAvailableMethods.config(
+            xscrollcommand=self.scbXAvailableMethods.set)
+
+        methods = self.rhymeWordProcessor.getRhymeWordMethodNames()
+        for i, method in enumerate(methods):
+            method
+            self.lboxAvailableMethods.insert(i, method[len("rhymeWords"):])
 
     def setupMethodChangeFrame(self):
         methodChangeWidth = self.baseWidth//5 - 10
@@ -116,9 +152,28 @@ class RimarioGenGui(tk.Tk):
         self.chosenMethodsFrame.grid_rowconfigure(5, weight=1)
 
         self.lboxChosenMethods = Listbox(
-            self.chosenMethodsFrame, height=10)
+            self.chosenMethodsFrame, height=15, width=chosenMethodsWidth//7+1)
         self.lboxChosenMethods.grid(
             row=0, column=0, padx=5, pady=5, sticky='N')
+
+        self.scbXChosenMethods = Scrollbar(
+            self.chosenMethodsFrame, orient="horizontal")
+        self.scbXChosenMethods.config(
+            command=self.lboxChosenMethods.xview)
+        self.scbXChosenMethods.grid(
+            row=0, column=0, padx=5, pady=5, sticky="SWE")
+        self.lboxChosenMethods.config(
+            xscrollcommand=self.scbXChosenMethods.set)
+
+        self.cbLemmatizeTreeTagger = Checkbutton(
+            self.chosenMethodsFrame, text="Lemmatize (TreeTagger)", variable=self.isLemmatizeTreeTagger)
+        self.cbLemmatizeTreeTagger.grid(
+            row=2, column=0, padx=5, pady=5, sticky="W")
+
+        self.cbLemmatizeSpacy = Checkbutton(
+            self.chosenMethodsFrame, text="Lemmatize (spaCy)", variable=self.isLemmatizeSpacy)
+        self.cbLemmatizeSpacy.grid(
+            row=3, column=0, padx=5, pady=5, sticky="W")
 
     def setupExportFrame(self):
         exportWidth = self.baseWidth//5*2 - 10
@@ -136,12 +191,25 @@ class RimarioGenGui(tk.Tk):
         self.lbExportSelect.grid(row=0, column=0, padx=5, pady=5, sticky='NW')
 
         self.cbExportTxt = Checkbutton(
-            self.exportFrame, text="Txt")
+            self.exportFrame, text="Txt", variable=self.isTxtExport)
         self.cbExportTxt.grid(row=1, padx=5, pady=5, sticky='W')
 
         self.cbExportCsv = Checkbutton(
-            self.exportFrame, text="Csv")
+            self.exportFrame, text="Csv", variable=self.isCsvExport)
         self.cbExportCsv.grid(row=2, padx=5, pady=5, sticky='W')
+
+        self.btExportDirSelect = Button(
+            self.exportFrame, text="Choose an export directory", command=self.btExportDirSelectClick)
+        self.btExportDirSelect.grid(row=3, padx=5, pady=5, sticky='W')
+
+        self.lbExportChosenHead = Label(
+            self.exportFrame, text="Directory chosen:")
+        self.lbExportChosenHead.grid(
+            row=4, column=0, padx=5, pady=5, sticky='W')
+
+        self.lbExportChosen = Label(
+            self.exportFrame, text="")
+        self.lbExportChosen.grid(row=5, column=0, padx=5, pady=5, sticky='W')
 
     def setupRunFrame(self):
         runWidth = self.baseWidth - 10
@@ -160,21 +228,78 @@ class RimarioGenGui(tk.Tk):
 
     def btFileSelectClick(self):
         maxlength = 40
-        filepath = askopenfilename()
+        filepath = askopenfilename(
+            filetypes=[("TEI XML", ".xml"), ("Text files", ".txt")])
         if len(filepath) > maxlength:
             self.filename = '...' + filepath[maxlength*-1:]
         else:
             self.filename = filepath
         self.lbFileChosen.config(text=self.filename)
 
+    def btExportDirSelectClick(self):
+        maxlength = 40
+        self.exportdir = askdirectory()
+        if len(self.exportdir) > maxlength:
+            self.lbExportChosen.config(
+                text=('...' + self.exportdir[maxlength*-1:]))
+        else:
+            self.lbExportChosen.config(text=self.exportdir)
+
     def btRunClick(self):
-        print("")
+        if self.filename != "" and self.filename != None:
+            self.parser = None
+            if ".xml" in os.path.basename(self.filename):
+                self.parser = TeiParser(self.filename)
+            elif ".txt" in os.path.basename(self.filename):
+                self.parser = TxtParser(self.filename)
+
+            if self.parser != None:
+                baseLines = self.parser.parse()
+                self.rhymeWordExtractor = RhymeWordExtractor(baseLines)
+                baseRhymeWordList = self.rhymeWordExtractor.extractRhymeWords()
+                if self.isLemmatizeTreeTagger.get():
+                    self.lemmatizer = Lemmatizer(baseRhymeWordList)
+                    baseRhymeWordList = self.lemmatizer.lemmatize()
+
+                self.rhymeWordProcessor.setRhymeWords(baseRhymeWordList)
+                for method in self.lboxChosenMethods.get(0, tk.END):
+                    callable = getattr(self.rhymeWordProcessor,
+                                       "rhymeWords" + method)
+                    baseRhymeWordList = callable()
+
+                if self.isTxtExport.get():
+                    self.exporter = TxtExporter("Rhymeword", baseRhymeWordList)
+                    self.exporter.export(os.path.join(
+                        self.exportdir, 'Rimario.txt'))
+                elif self.isCsvExport.get():
+                    self.exporter = CsvExporter("Rhymeword", baseRhymeWordList)
+                    self.exporter.export(os.path.join(
+                        self.exportdir, 'Rimario.csv'))
+                else:
+                    messagebox.showwarning(
+                        "No export selected", "You haven't chosen any export method. This way you cannot view the results of the analysis performed.")
+            else:
+                messagebox.showwarning(
+                    "Wrong file type", "You provided a file not supported yet. Please only use (TEI) XML files or TXT files")
+        else:
+            messagebox.showwarning(
+                "Choose file to analyze", "Please choose a file to be analyzed")
 
     def btAddMethodClick(self):
-        print("")
+        alreadyChosenNumber = len(self.lboxChosenMethods.get(0, tk.END))
+        for i in self.lboxAvailableMethods.curselection():
+            self.lboxChosenMethods.insert(
+                alreadyChosenNumber, self.lboxAvailableMethods.get(i))
+            alreadyChosenNumber = alreadyChosenNumber+1
+            self.lboxAvailableMethods.delete(i)
 
     def btRemoveMethodClick(self):
-        print("")
+        stillAvailableNumber = len(self.lboxAvailableMethods.get(0, tk.END))
+        for i in self.lboxChosenMethods.curselection():
+            self.lboxAvailableMethods.insert(
+                stillAvailableNumber, self.lboxChosenMethods.get(i))
+            stillAvailableNumber = stillAvailableNumber+1
+            self.lboxChosenMethods.delete(i)
 
 
 def main():

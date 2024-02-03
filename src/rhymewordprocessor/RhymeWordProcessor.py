@@ -8,7 +8,27 @@ class RhymeWordProcessor:
         rhymeWords:  -- (List of strings) List of rhyme words to be processed'''
         self.rhymeWords = rhymeWords
 
-    def removeDuplicates(self):
+    def getRhymeWordMethodNames(self):
+        '''Get all method names that are associated with the analysis/manipulation of rhyme word list
+
+        returns:  -- (List of strings) List of all method names associated with analysis/manipulation of rhyme word list'''
+        rhymeWordMethods = [func for func in dir(RhymeWordProcessor) if (callable(getattr(
+            RhymeWordProcessor, func)) and func.startswith("rhymeWords"))]
+        return rhymeWordMethods
+
+    def setRhymeWords(self, rhymeWords):
+        '''Set internal rhyme word list of RhymeWordProcessor
+
+        rhymeWords:  -- (List of strings) List of rhyme words to be processed'''
+        self.rhymeWords = rhymeWords
+
+    def hasRhymeWords(self):
+        '''Get information whether there is an internal rhyme word list with rhyme words
+
+        returns:  -- (Boolean) Value indicating whether there are ryhme words in internal rhyme word list or not'''
+        return (self.rhymeWords == None or len(self.rhymeWords) == 0)
+
+    def rhymeWordsRemoveDuplicates(self):
         '''Remove duplicates of internal rhyme word list
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -19,36 +39,34 @@ class RhymeWordProcessor:
         rhymewords_withoutDuplicates = list(rhymeword_dict)
         return rhymewords_withoutDuplicates
 
-
-    def getRawList(self):
+    def rhymeWordsGetRawList(self):
         '''Deliver internal rhyme word list without any modifications/calculations
 
         returns:  -- (List of strings) List of rhyme words (internal unmodificated list)'''
         return self.rhymeWords
-        
 
-    def sortByOccurences(self):
+    def rhymeWordsSortByOccurences(self):
         '''Deliver rhyme word list sorted by the number of occurences, so the most frequent rhyme word will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted by occurrences'''
-        # TBD 
+        # TBD
         # Veronika
         for word in self.rhymeWords:
             occurences = self.rhymeWords.count(word)
 
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def sortByLength(self):
+    def rhymeWordsSortByLength(self):
         '''Deliver rhyme word list sorted by the length of the words, so the rhyme word with most letters will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted by length'''
-        
+
         rhymewordsByLength = sorted(self.rhymeWords, key=len)
         return rhymewordsByLength
 
-    def sortAlphabetically(self):
+    def rhymeWordsSortAlphabetically(self):
         '''Deliver rhyme word list sorted alphabetically, so the rhyme word starting with an "A" will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -56,17 +74,18 @@ class RhymeWordProcessor:
         rhymewordsAlphabetically = sorted(self.rhymeWords)
         return rhymewordsAlphabetically
 
-    def sortAlphabeticallyLastLetter(self):
+    def rhymeWordsSortAlphabeticallyLastLetter(self):
         '''Deliver rhyme word list sorted alphabetically considering the last letter, so the rhyme word ending with an "A" will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted alphabetically considering their last letter'''
         def sortByLastLetter(s):
             return s[-1], s
-        rhymewordsAlphabeticallyReverse = sorted(self.rhymeWords, key = sortByLastLetter)
+        rhymewordsAlphabeticallyReverse = sorted(
+            self.rhymeWords, key=sortByLastLetter)
         return rhymewordsAlphabeticallyReverse
 
-    def sortByNumberOfVowels(self):
+    def rhymeWordsSortByNumberOfVowels(self):
         '''Deliver rhyme word list sorted by the number of vowels, so the rhyme word containing the highest number of vowels will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -74,7 +93,7 @@ class RhymeWordProcessor:
         # TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def sortByVowelFrequency(self):
+    def rhymeWordsSortByVowelFrequency(self):
         '''Deliver rhyme word list sorted by their vowel frequency, so the rhyme word containing the highest relative number of vowels (vowels out of all letters of word) will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -82,7 +101,7 @@ class RhymeWordProcessor:
         # TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def sortByNumberOfConsonants(self):
+    def rhymeWordsSortByNumberOfConsonants(self):
         '''Deliver rhyme word list sorted by the number of consonants, so the rhyme word containing the highest number of consonants will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -90,7 +109,7 @@ class RhymeWordProcessor:
         # TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def sortByConsonantFrequency(self):
+    def rhymeWordsSortByConsonantFrequency(self):
         '''Deliver rhyme word list sorted by their consonant frequency, so the rhyme word containing the highest relative number of consonants (consonants out of all letters of word) will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -98,7 +117,7 @@ class RhymeWordProcessor:
         # TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def sortByNumberOfLetters(self, letterlist):
+    def rhymeWordsSortByNumberOfLetters(self, letterlist):
         '''Deliver rhyme word list sorted by the number of letters searched, so the rhyme word containing the highest number of letters corresponding the letter list given will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -108,7 +127,7 @@ class RhymeWordProcessor:
         # TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def sortByNumberOfLetterFrequency(self, letterlist):
+    def rhymeWordsSortByNumberOfLetterFrequency(self, letterlist):
         '''Deliver rhyme word list sorted by their frequency of letters searched, so the rhyme word containing the highest relative of letters corresponding the letter list given (letters searched out of all letters of word) will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
