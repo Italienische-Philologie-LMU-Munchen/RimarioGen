@@ -328,7 +328,7 @@ class RimarioGenGui(tk.Tk):
         self.legalNotice.mainloop()
 
     def childClose(self, childWindow):
-        self.isLegalNoticeOpen = False
+        self.isChildWindowOpen = False
         childWindow.destroy()
 
     def mainClose(self):
