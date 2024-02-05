@@ -35,13 +35,13 @@ class SpaCyLemmatizer:
 
 
 # Test
-testWords = ['Nel', 'mezzo', 'del', 'cammin', 'di', 'nostra', 'vita']
+# testWords = ['Nel', 'mezzo', 'del', 'cammin', 'di', 'nostra', 'vita']
 
-# Ausgabe
-testLemmatizer = TreeTaggerLemmatizer(testWords)
-testLemmatizerResult = testLemmatizer.lemmatize()
-print("\nTreeTagger >>", testLemmatizerResult)
+# # Ausgabe
+# testLemmatizer = TreeTaggerLemmatizer(testWords)
+# testLemmatizerResult = testLemmatizer.lemmatize()
+# print("\nTreeTagger >>", testLemmatizerResult)
 
-testLemmatizer2 = SpaCyLemmatizer(testWords)
-testLemmatizerResult2 = testLemmatizer2.lemmatize()
-print("SpaCy >>", testLemmatizerResult2)
+# testLemmatizer2 = SpaCyLemmatizer(testWords)
+# testLemmatizerResult2 = testLemmatizer2.lemmatize()
+# print("SpaCy >>", testLemmatizerResult2)
