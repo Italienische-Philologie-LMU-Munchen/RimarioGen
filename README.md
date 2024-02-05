@@ -41,6 +41,7 @@ The following features are to be implemented in further versions of the software
 - Error handling with useful error message box
 - Logging of errors and warnings
 - Improve GUI
+- Complete sorting functionalities so far planned
 - Add further functionalities for Rimario generation
 - Add graphical analysis (especially for vowel/consonant/letter distribution)
 - Create console application
