@@ -90,8 +90,21 @@ class RhymeWordProcessor:
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted by their number of vowels'''
-        # TBD
-        print("RhymeWordProcessor hasn't been implemented yet.")
+        def sortByNumberOfVowels(string):
+            count=0
+            for letter in string:
+                if letter in ['a','á','à','â','ä','A','Á','À','Â','Ä',
+                             'e','é','è','ê','ë','E','É','È','Ê','Ë',
+                             'i','í','ì','î','ï','I','Í','Ì','Î','Ï',
+                             'o','ó','ò','ô','ö','O','Ó','Ò','Ô','Ö',
+                             'u','ú','ù','û','ü','U','Ú','Ù','Û','Ü'
+                             ]:
+                    count=count+1
+            return count
+        
+        rhymwordsByNumberOfVowels = sorted(self.rhymeWords, key=sortByNumberOfVowels)
+        return rhymwordsByNumberOfVowels
+    print("RhymeWordProcessor hasn't been implemented yet.")
 
     def rhymeWordsSortByVowelFrequency(self):
         '''Deliver rhyme word list sorted by their vowel frequency, so the rhyme word containing the highest relative number of vowels (vowels out of all letters of word) will be the first word in the list returned
