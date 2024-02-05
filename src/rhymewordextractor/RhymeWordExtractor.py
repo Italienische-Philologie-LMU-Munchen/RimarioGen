@@ -12,10 +12,15 @@ class RhymeWordExtractor:
         '''Extract rhyme words of internal text lines
 
         returns:  -- (List of strings List of rhyme words extracted)'''
+        import re
 
         rhymewordlist = []
         for verse in self.textlines:
             words = verse.split(' ')
             rhymeword = words[-1]
+            re.sub(r"^([^a-zA-Z])+", "", rhymeword)
+            re.sub(r"$([^a-zA-Z])+", "", rhymeword)
             rhymewordlist.append(rhymeword)
+        
+        # re.sub(r"^\s*$", "", rhymewordlist)
         return(rhymewordlist)

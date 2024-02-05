@@ -52,8 +52,12 @@ class RhymeWordProcessor:
         returns:  -- (List of strings) List of rhyme words sorted by occurrences'''
         # TBD
         # Veronika
+        occurences =[]
         for word in self.rhymeWords:
-            occurences = self.rhymeWords.count(word)
+            occurence = self.rhymeWords.count(word)
+            occurences.append(occurence)
+        #sort_order = sorted(occurences)
+        #sorted(self.rhymeWords, key = lambda i: sort_order.index(i[0]))
 
         print("RhymeWordProcessor hasn't been implemented yet.")
 

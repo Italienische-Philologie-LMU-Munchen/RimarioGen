@@ -19,6 +19,7 @@ from lemmatizer import Lemmatizer
 from legalNoticeGui import LegalNoticeGui
 import os.path
 import treetaggerwrapper
+import spacy
 import sys
 
 
@@ -188,7 +189,8 @@ class RimarioGenGui(tk.Tk):
             self.chosenMethodsFrame, text="Lemmatize (spaCy)", variable=self.isLemmatizeSpacy)
         self.cbLemmatizeSpacy.grid(
             row=3, column=0, padx=5, pady=5, sticky="W")
-        self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
+        if self.isSpacyTaggerAvailable() == False:
+            self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
 
         self.btLegalNotice = Button(
             self.chosenMethodsFrame, text="Legal Notice", command=self.btLegalNoticeClick)
@@ -347,6 +349,17 @@ class RimarioGenGui(tk.Tk):
             else:
                 tagger = treetaggerwrapper.TreeTagger(TAGLANG='it')
                 tagger.tag_text("io")
+        except:
+            returnFlag = False
+        finally:
+            return returnFlag
+        
+    def isSpacyTaggerAvailable(self):
+        returnFlag = True
+        try:
+            spacyTagger = spacy.load("it_core_news_sm")
+            doc = spacyTagger(" ".join(["io"]))
+            lemmas = [token.lemma_ for token in doc]
         except:
             returnFlag = False
         finally:
