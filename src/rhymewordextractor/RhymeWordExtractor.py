@@ -18,8 +18,8 @@ class RhymeWordExtractor:
         for verse in self.textlines:
             words = verse.split(' ')
             rhymeword = words[-1]
-            re.sub(r"^([^a-zA-Z])+", "", rhymeword)
-            re.sub(r"$([^a-zA-Z])+", "", rhymeword)
+            rhymeword = re.sub(r"^([^a-zA-Z])+", "", rhymeword)
+            rhymeword = re.sub(r"$([^a-zA-Z])+", "", rhymeword)
             rhymewordlist.append(rhymeword)
         
         # re.sub(r"^\s*$", "", rhymewordlist)
