@@ -46,7 +46,7 @@ Version: 0.1.0.0
 Copyright: ©2024, GNU GPLv3 License
 
 Insitute of Italian Philology, LMU Munich.
-Collaborators: '''
+Collaborators: Veronika Diem, Sheila Incarbone, Sascha Resch'''
         self.lbLegalText = Label(self, text=self.legalText, justify='left')
         self.lbLegalText.grid(row=1, column=0, padx=5, pady=5, sticky='NW')
 

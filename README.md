@@ -4,7 +4,7 @@
 
 ## Background
 
-The software is the result of an introductory seminar to Python programming for philology students held by Sascha Resch in winter 2023/2024 at the institute for Italian philology at LMU Munich. At the end of this seminar, the skills acquired were applied in developping an easy, yet useful Python application.
+The software is the result of an introductory seminar to Python programming for philology students held by Sascha Resch in winter 2023/2024 at the institute for Italian philology at LMU Munich. At the end of this seminar, the skills acquired were applied in developping an easy, yet useful Python application. Amongst the students involved in this project we may name: Veronika Diem, Sheila Incarbone.
 
 ## Installation/Prerequisities
 
