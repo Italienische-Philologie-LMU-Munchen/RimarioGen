@@ -16,12 +16,4 @@ class TxtParser:
                 return lines
         except FileNotFoundError:
             print(f"File not found: {self.inputfile}")
-            return [] # leere Liste im Falle eines Fehlers
-
-# Test
-input_path = 'C:/Users/Sheilaa/Documents/GitHub/RimarioGen/src/txtparser/faust.txt'
-parser = TxtParser(input_path)
-parsed_lines = parser.parse()
-
-# Ausgabe
-print(parsed_lines)
+            return []  # leere Liste im Falle eines Fehlers
