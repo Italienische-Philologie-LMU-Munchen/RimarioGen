@@ -12,6 +12,12 @@ In order to run **Rimario Generator** you have to install [Python 3](https://www
 
 Then, you should install all prerequisities (`pip install -r requirements.txt` or `pip3 install -r requirements.txt`on Mac or Linux systems).
 
+For Windows users: If you want (or need) to install **Rimario Generator** with a shortcut on your desktop, please perform the following steps:
+
+- Download/Clone the source code
+- Run `install.ps1` - be aware that you have to run ps1-files by using a right-click and clicking 'Run with PowerShell'
+- After the installation process you should see a shortcut on your desktop. By double-clicking the shortcut icon **Rimario Generator** should start in GUI mode
+
 In order to use the TreeTagger lemmatizing function, you need to install a version not higher than Python 3.11. Furthermore, you have to install TreeTagger on your local machine following these instructions: [TreeTagger by Helmut Schmid](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/)
 
 ## Special prerequisities for Mac M1 architecture
