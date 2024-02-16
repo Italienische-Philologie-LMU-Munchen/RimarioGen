@@ -185,12 +185,12 @@ class RimarioGenGui(tk.Tk):
         if self.isTreeTaggerAvailable() == False:
             self.cbLemmatizeTreeTagger.configure(state=tk.DISABLED)
 
-        self.cbLemmatizeSpacy = Checkbutton(
-            self.chosenMethodsFrame, text="Lemmatize (spaCy)", variable=self.isLemmatizeSpacy)
-        self.cbLemmatizeSpacy.grid(
-            row=3, column=0, padx=5, pady=5, sticky="W")
-        if self.isSpacyTaggerAvailable() == False:
-            self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
+        # self.cbLemmatizeSpacy = Checkbutton(
+        #     self.chosenMethodsFrame, text="Lemmatize (spaCy)", variable=self.isLemmatizeSpacy)
+        # self.cbLemmatizeSpacy.grid(
+        #     row=3, column=0, padx=5, pady=5, sticky="W")
+        # if self.isSpacyTaggerAvailable() == False:
+        #     self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
 
         self.btLegalNotice = Button(
             self.chosenMethodsFrame, text="Legal Notice", command=self.btLegalNoticeClick)
@@ -292,11 +292,11 @@ class RimarioGenGui(tk.Tk):
                     self.exporter = TxtExporter("Rhymeword", baseRhymeWordList)
                     self.exporter.export(os.path.join(
                         self.exportdir, 'Rimario.txt'))
-                elif self.isCsvExport.get():
+                if self.isCsvExport.get():
                     self.exporter = CsvExporter("Rhymeword", baseRhymeWordList)
                     self.exporter.export(os.path.join(
                         self.exportdir, 'Rimario.csv'))
-                else:
+                if self.isTxtExport.get() == False and self.isCsvExport.get() == False:
                     messagebox.showwarning(
                         "No export selected", "You haven't chosen any export method. This way you cannot view the results of the analysis performed.")
             else:
@@ -353,7 +353,7 @@ class RimarioGenGui(tk.Tk):
             returnFlag = False
         finally:
             return returnFlag
-        
+
     def isSpacyTaggerAvailable(self):
         returnFlag = True
         try:

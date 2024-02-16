@@ -19,7 +19,7 @@ class TxtExporter:
         f = open(outputfile, "w", encoding="utf-8")
 
         f.write(self.lableData)
-        f.write("\n")
+        f.write("\n\n")
 
         for rhymeword in self.data:
             f.write(rhymeword)
