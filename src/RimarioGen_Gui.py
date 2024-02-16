@@ -182,19 +182,25 @@ class RimarioGenGui(tk.Tk):
             self.chosenMethodsFrame, text="Lemmatize (TreeTagger)", variable=self.isLemmatizeTreeTagger)
         self.cbLemmatizeTreeTagger.grid(
             row=2, column=0, padx=5, pady=5, sticky="W")
-        if self.isTreeTaggerAvailable() == False:
-            self.cbLemmatizeTreeTagger.configure(state=tk.DISABLED)
+        self.cbLemmatizeTreeTagger.configure(state=tk.DISABLED)
 
-        # self.cbLemmatizeSpacy = Checkbutton(
-        #     self.chosenMethodsFrame, text="Lemmatize (spaCy)", variable=self.isLemmatizeSpacy)
-        # self.cbLemmatizeSpacy.grid(
-        #     row=3, column=0, padx=5, pady=5, sticky="W")
-        # if self.isSpacyTaggerAvailable() == False:
-        #     self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
+        self.btCheckTreeTagger = Button(
+            self.chosenMethodsFrame, text="Check for Treetagger", command=self.btCheckTreeTaggerClick)
+        self.btCheckTreeTagger.grid(row=3, padx=5, pady=5, sticky='NE')
+
+        self.cbLemmatizeSpacy = Checkbutton(
+            self.chosenMethodsFrame, text="Lemmatize (spaCy)", variable=self.isLemmatizeSpacy)
+        self.cbLemmatizeSpacy.grid(
+            row=4, column=0, padx=5, pady=5, sticky="W")
+        self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
+
+        self.btCheckSpacy = Button(
+            self.chosenMethodsFrame, text="Check for Spacy", command=self.btCheckSpacyClick)
+        self.btCheckSpacy.grid(row=5, padx=5, pady=5, sticky='NE')
 
         self.btLegalNotice = Button(
             self.chosenMethodsFrame, text="Legal Notice", command=self.btLegalNoticeClick)
-        self.btLegalNotice.grid(row=5, padx=5, pady=5, sticky='NE')
+        self.btLegalNotice.grid(row=6, padx=5, pady=5, sticky='NE')
 
     def setupExportFrame(self):
         exportWidth = self.baseWidth//5*2 - 10
@@ -321,6 +327,25 @@ class RimarioGenGui(tk.Tk):
                 stillAvailableNumber, self.lboxChosenMethods.get(i))
             stillAvailableNumber = stillAvailableNumber+1
             self.lboxChosenMethods.delete(i)
+
+    def btLegalNoticeClick(self):
+        self.legalNotice = LegalNoticeGui()
+        self.isChildWindowOpen = True
+        self.legalNotice.protocol(
+            'WM_DELETE_WINDOW', lambda: self.childClose(self.legalNotice))
+        self.legalNotice.mainloop()
+
+    def btCheckTreeTaggerClick(self):
+        if self.isTreeTaggerAvailable() == False:
+            self.cbLemmatizeTreeTagger.configure(state=tk.DISABLED)
+        else:
+            self.cbLemmatizeTreeTagger.configure(state=tk.ACTIVE)
+
+    def btCheckSpacyClick(self):
+        if self.isSpacyTaggerAvailable() == False:
+            self.cbLemmatizeSpacy.configure(state=tk.DISABLED)
+        else:
+            self.cbLemmatizeSpacy.configure(state=tk.ACTIVE)
 
     def btLegalNoticeClick(self):
         self.legalNotice = LegalNoticeGui()
