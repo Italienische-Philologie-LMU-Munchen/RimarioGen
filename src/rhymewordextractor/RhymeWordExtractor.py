@@ -17,10 +17,12 @@ class RhymeWordExtractor:
         rhymewordlist = []
         for verse in self.textlines:
             if verse != "" and verse != " " and verse != "\n":
-                verse = re.sub(r"([^a-zA-Z])+$", "", verse)
+                verse = re.sub(r"([^a-zA-ZÀ-ÿ])+$", "", verse)
                 words = verse.split(' ')
+                if len(words[-1]) == 1:
+                    print(words)
                 rhymeword = words[-1]
-                rhymeword = re.sub(r"^([^a-zA-Z])+", "", rhymeword)
+                rhymeword = re.sub(r"^([^a-zA-ZÀ-ÿ])+", "", rhymeword)
                 if (rhymeword != "" and rhymeword != " " and rhymeword != "\n" and rhymeword != "\r\n"):
                     rhymewordlist.append(rhymeword)
 

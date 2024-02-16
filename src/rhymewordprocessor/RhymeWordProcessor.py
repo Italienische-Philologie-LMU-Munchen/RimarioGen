@@ -45,19 +45,19 @@ class RhymeWordProcessor:
         returns:  -- (List of strings) List of rhyme words (internal unmodificated list)'''
         return self.rhymeWords
 
-    def rhymeWordsSortByOccurences(self):
+    def TBDrhymeWordsSortByOccurences(self):
         '''Deliver rhyme word list sorted by the number of occurences, so the most frequent rhyme word will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
         returns:  -- (List of strings) List of rhyme words sorted by occurrences'''
         # TBD
         # Veronika
-        occurences =[]
+        occurences = []
         for word in self.rhymeWords:
             occurence = self.rhymeWords.count(word)
             occurences.append(occurence)
-        #sort_order = sorted(occurences)
-        #sorted(self.rhymeWords, key = lambda i: sort_order.index(i[0]))
+        # sort_order = sorted(occurences)
+        # sorted(self.rhymeWords, key = lambda i: sort_order.index(i[0]))
 
         print("RhymeWordProcessor hasn't been implemented yet.")
 
@@ -95,22 +95,22 @@ class RhymeWordProcessor:
 
         returns:  -- (List of strings) List of rhyme words sorted by their number of vowels'''
         def sortByNumberOfVowels(string):
-            count=0
+            count = 0
             for letter in string:
-                if letter in ['a','á','à','â','ä','A','Á','À','Â','Ä',
-                             'e','é','è','ê','ë','E','É','È','Ê','Ë',
-                             'i','í','ì','î','ï','I','Í','Ì','Î','Ï',
-                             'o','ó','ò','ô','ö','O','Ó','Ò','Ô','Ö',
-                             'u','ú','ù','û','ü','U','Ú','Ù','Û','Ü'
-                             ]:
-                    count=count+1
+                if letter in ['a', 'á', 'à', 'â', 'ä', 'A', 'Á', 'À', 'Â', 'Ä',
+                              'e', 'é', 'è', 'ê', 'ë', 'E', 'É', 'È', 'Ê', 'Ë',
+                              'i', 'í', 'ì', 'î', 'ï', 'I', 'Í', 'Ì', 'Î', 'Ï',
+                              'o', 'ó', 'ò', 'ô', 'ö', 'O', 'Ó', 'Ò', 'Ô', 'Ö',
+                              'u', 'ú', 'ù', 'û', 'ü', 'U', 'Ú', 'Ù', 'Û', 'Ü'
+                              ]:
+                    count = count+1
             return count
-        
-        rhymwordsByNumberOfVowels = sorted(self.rhymeWords, key=sortByNumberOfVowels)
-        return rhymwordsByNumberOfVowels
-    
 
-    def rhymeWordsSortByVowelFrequency(self):
+        rhymwordsByNumberOfVowels = sorted(
+            self.rhymeWords, key=sortByNumberOfVowels)
+        return rhymwordsByNumberOfVowels
+
+    def TBDrhymeWordsSortByVowelFrequency(self):
         '''Deliver rhyme word list sorted by their vowel frequency, so the rhyme word containing the highest relative number of vowels (vowels out of all letters of word) will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -124,18 +124,18 @@ class RhymeWordProcessor:
 
         returns:  -- (List of strings) List of rhyme words sorted by their number of consonants'''
         def sortByNumberOfConsonants(string):
-            count=0
+            count = 0
             for letter in string:
-                if letter in ['b','B','c','C','d','D','f','F','g','G','h','H','l','L','m','M','n','N','p','P','q','Q','r','R','s','S','t','T','v','V','w','W','x','X','y','Y','z','Z','j','J','ç','Ç','ſ'
-                             ]:
-                    count=count+1
+                if letter in ['b', 'B', 'c', 'C', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H', 'l', 'L', 'm', 'M', 'n', 'N', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z', 'j', 'J', 'ç', 'Ç', 'ſ'
+                              ]:
+                    count = count+1
             return count
-        
-        rhymwordsByNumberOfConsonants = sorted(self.rhymeWords, key=sortByNumberOfConsonants)
-        return rhymwordsByNumberOfConsonants
-        
 
-    def rhymeWordsSortByConsonantFrequency(self):
+        rhymwordsByNumberOfConsonants = sorted(
+            self.rhymeWords, key=sortByNumberOfConsonants)
+        return rhymwordsByNumberOfConsonants
+
+    def TBDrhymeWordsSortByConsonantFrequency(self):
         '''Deliver rhyme word list sorted by their consonant frequency, so the rhyme word containing the highest relative number of consonants (consonants out of all letters of word) will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -143,7 +143,7 @@ class RhymeWordProcessor:
         # TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def rhymeWordsSortByNumberOfLetters(self, letterlist):
+    def TBDrhymeWordsSortByNumberOfLetters(self, letterlist):
         '''Deliver rhyme word list sorted by the number of letters searched, so the rhyme word containing the highest number of letters corresponding the letter list given will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
@@ -153,7 +153,7 @@ class RhymeWordProcessor:
         # TBD
         print("RhymeWordProcessor hasn't been implemented yet.")
 
-    def rhymeWordsSortByNumberOfLetterFrequency(self, letterlist):
+    def TBDrhymeWordsSortByNumberOfLetterFrequency(self, letterlist):
         '''Deliver rhyme word list sorted by their frequency of letters searched, so the rhyme word containing the highest relative of letters corresponding the letter list given (letters searched out of all letters of word) will be the first word in the list returned
         !!Attention: Does not change the internal rhyme word list!!
 
