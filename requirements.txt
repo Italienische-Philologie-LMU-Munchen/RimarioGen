@@ -2,3 +2,5 @@
 
 lxml==4.9.1
 treetaggerwrapper==2.3
+six==1.16.0
+spacy==3.7.4
